@@ -171,6 +171,18 @@ class HybridEnsemble:
             eval_set=(X_val, y_val) if X_val is not None else None,
             verbose=False
         )
+        
+        # Store CatBoost history
+        if X_val is not None:
+            # CatBoost stores history differently - get it from evals_result_
+            evals_result = self.models['catboost'].get_evals_result()
+            if evals_result:
+                # Training set metrics
+                if 'learn' in evals_result:
+                    self.training_history['catboost']['train_loss'] = evals_result['learn'].get('Logloss', [])
+                # Validation set metrics
+                if 'validation' in evals_result:
+                    self.training_history['catboost']['val_loss'] = evals_result['validation'].get('Logloss', [])
 
         print("  ✓ CatBoost training complete")
 
