@@ -231,9 +231,21 @@ This executes the full research pipeline:
 5. Evaluates both on validation and test sets
 6. Saves models and generates visualizations
 
-### Interactive Prediction
+### Interactive Streamlit Web App (Recommended)
 ```bash
-python interact.py
+streamlit run app.py --server.port 8502
+```
+*(Or double-click `run_app.bat` on Windows)*
+Provides:
+- Modern glassmorphic web dashboard
+- Interactive wellness sliders & preset profiles
+- Live burnout risk gauge & resilience score
+- Plotly 5-Pillar Wellbeing Radar Chart
+- Tailored clinical recommendations & downloadable reports
+
+### Terminal CLI Prediction
+```bash
+python interface.py
 ```
 
 Provides:
@@ -263,6 +275,21 @@ ensemble.train(X_train, y_train, X_val, y_val)
 predictions = ensemble.predict(X_test)
 probabilities = ensemble.predict_proba(X_test)
 ```
+
+### Simple project map
+
+The project has one clear path:
+
+1. `run_pipeline.py` starts the training pipeline.
+2. `src/main.py` coordinates loading, cleaning, training, and saving.
+3. `src/data_processor.py` converts all source datasets to the same columns.
+4. `src/single_model_trainer.py` trains the XGBoost model.
+5. `src/ensemble_trainer.py` trains the optional three-model ensemble.
+6. `app.py` loads a saved model for the web interface.
+
+The root `model.py` is only a small compatibility wrapper for older imports.
+New code should import from `src` directly. The saved files in `models/` are
+outputs, not source code.
 
 ---
 

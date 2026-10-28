@@ -1,0 +1,77 @@
+======================================================================
+BURNOUT PREDICTION MODEL - PERFORMANCE & EVALUATION REPORT
+======================================================================
+Total Samples Trained/Evaluated: 178,113 samples
+Training Set:   124,679 samples (70%)
+Validation Set:  26,717 samples (15%)
+Test Set:        26,717 samples (15%)
+Number of Features: 21 features
+
+======================================================================
+1. TEST SET BENCHMARK RESULTS (26,717 Unseen Samples)
+======================================================================
+
+Model                          Accuracy   F1-Score   Precision   Recall     ROC-AUC
+--------------------------------------------------------------------------------
+Single Model (XGBoost)         96.30%     0.9059     83.55%      98.92%     0.9961
+Hybrid Ensemble (Soft Voting)  96.26%     0.9049     83.34%      98.98%     0.9962
+--------------------------------------------------------------------------------
+Ensemble Sub-models:
+- XGBoost (Conservative)       96.31%     0.9061
+- LightGBM (Aggressive)        96.26%     0.9048
+- CatBoost (Balanced)          96.25%     0.9048
+
+======================================================================
+2. CONFUSION MATRICES (Test Set - 26,717 samples)
+======================================================================
+
+A. Single Model (XGBoost):
+                  Predicted No Burnout    Predicted Burnout
+Actual No Burnout       20,975 (TN)              936 (FP)
+Actual Burnout              52 (FN)            4,754 (TP)
+
+• True Negatives (Correctly identified No Burnout): 20,975 (95.73%)
+• True Positives (Correctly caught Burnout cases):    4,754 (98.92%)
+• False Negatives (Missed Burnout cases):               52  (1.08%)
+• False Positives (Incorrectly flagged):               936  (4.27%)
+
+B. Hybrid Ensemble (Voting):
+                  Predicted No Burnout    Predicted Burnout
+Actual No Burnout       20,960 (TN)              951 (FP)
+Actual Burnout              49 (FN)            4,757 (TP)
+
+• True Negatives: 20,960
+• True Positives:  4,757
+• False Negatives:    49 (Caught 4,757 of 4,806 total burnout cases)
+• False Positives:   951
+
+======================================================================
+3. VALIDATION SET RESULTS (For Overfitting Check)
+======================================================================
+Single Model (XGBoost):
+• Accuracy:  96.47%
+• F1-Score:  0.9096
+• ROC-AUC:   0.9963
+• Precision: 84.39%
+• Recall:    98.65%
+
+Hybrid Ensemble:
+• Accuracy:  96.43%
+• F1-Score:  0.9088
+• ROC-AUC:   0.9963
+• Precision: 84.14%
+• Recall:    98.79%
+
+======================================================================
+4. FILE LOCATIONS
+======================================================================
+Metrics JSON:          models/metrics.json
+Evaluation Report:     models/evaluation_report.txt
+Single XGBoost Model:  models/single_model_xgboost.pkl
+Primary Deploy Model:  models/burnout_combined_model.pkl
+Hybrid Ensemble Model: models/hybrid_ensemble.pkl
+Full Correlation Plot: models/correlation_matrix_full.png
+Top Features Heatmap:  models/correlation_matrix_focused.png
+Learning Curves:       models/training_history.png
+Ensemble Loss Curves:  models/ensemble_training_history.png
+======================================================================

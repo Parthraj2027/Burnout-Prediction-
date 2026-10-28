@@ -1,14 +1,7 @@
-"""
-Configuration Module
-Centralized settings for the burnout prediction model
-"""
-
 from pathlib import Path
 
-# Project root directory
 ROOT_DIR = Path(__file__).parent.parent
 
-# Dataset file paths
 DATASET_PATHS = {
     'employee_burnout': './dataset/train.csv',
     'hackerearth_burnout': './dataset/train.csv',
@@ -21,7 +14,6 @@ DATASET_PATHS = {
     'additional_train': './dataset/X_train_processed.csv'
 }
 
-# XGBoost Model Parameters
 MODEL_PARAMS = {
     'learning_rate': 0.05,
     'max_depth': 7,
@@ -35,28 +27,24 @@ MODEL_PARAMS = {
     'eval_metric': 'logloss'
 }
 
-# Data Processing Parameters
 PROCESSING_PARAMS = {
-    'test_size': 0.15,          # 15% for test
-    'validation_size': 0.15,    # 15% for validation (from remaining data)
+    'test_size': 0.15,
+    'validation_size': 0.15,
     'random_state': 42,
-    'missing_threshold': 50,  # Percentage for creating missing indicators
-    'correlation_threshold': 0.8  # For multicollinearity detection
+    'missing_threshold': 50,
+    'correlation_threshold': 0.8
 }
 
-# SMOTE Parameters
 SMOTE_PARAMS = {
     'random_state': 42
 }
 
-# Output file paths
 OUTPUT_PATHS = {
     'model': './models/burnout_combined_model.pkl',
     'correlation_full': './models/correlation_matrix_full.png',
     'correlation_focused': './models/correlation_matrix_focused.png'
 }
 
-# Visualization Settings
 PLOT_SETTINGS = {
     'full_heatmap_size': (16, 14),
     'focused_heatmap_size': (12, 10),
@@ -64,7 +52,6 @@ PLOT_SETTINGS = {
     'cmap': 'RdBu_r'
 }
 
-# Feature Mappings for each dataset
 FEATURE_MAPS = {
     'employee_burnout': {
         'stress_level': 'Mental Fatigue Score',
